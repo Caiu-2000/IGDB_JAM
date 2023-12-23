@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://b26ol73nv3kbd"]
+
+[ext_resource type="Script" path="res://Scripts/Basic_Enemy.gd" id="1_qaxhl"]
+[ext_resource type="PackedScene" uid="uid://dkuytlsu8amnt" path="res://Complementary_Scenes/life_handler.tscn" id="3_e7w0f"]
+[ext_resource type="AudioStream" uid="uid://ciq83urnclvr" path="res://SFX/enemy_damage.wav" id="4_e74fe"]
+[ext_resource type="Texture2D" uid="uid://cd5cgigb3kp2" path="res://Sprites/Sprites-20231223T203514Z-001/Sprites/Monsters/Zombie_Astrounaut.png" id="5_4a0xv"]
+[ext_resource type="AudioStream" uid="uid://br87rc63sward" path="res://SFX/enemy_death.wav" id="5_y4xok"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdvcr"]
+size = Vector2(31, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gawj7"]
+size = Vector2(26, 31)
+
+[node name="Basic_Enemy" type="CharacterBody2D"]
+self_modulate = Color(1, 1, 1, 0)
+collision_layer = 129
+collision_mask = 129
+script = ExtResource("1_qaxhl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 0.5)
+shape = SubResource("RectangleShape2D_mdvcr")
+
+[node name="Life_Handler" parent="." instance=ExtResource("3_e7w0f")]
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Damaged" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("4_e74fe")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="Death" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("5_y4xok")
+bus = &"SFX"
+
+[node name="Damage_Area" type="Area2D" parent="."]
+modulate = Color(0.988235, 0.145098, 0.0431373, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Area"]
+position = Vector2(-2, 0.5)
+shape = SubResource("RectangleShape2D_gawj7")
+
+[node name="ZombieAstrounaut" type="Sprite2D" parent="."]
+texture = ExtResource("5_4a0xv")
+
+[connection signal="area_entered" from="Damage_Area" to="." method="_on_damage_area_area_entered"]
+[connection signal="body_entered" from="Damage_Area" to="." method="_on_damage_area_body_entered"]
+[connection signal="body_exited" from="Damage_Area" to="." method="_on_damage_area_body_exited"]

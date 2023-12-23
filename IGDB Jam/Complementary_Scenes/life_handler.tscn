@@ -1,0 +1,120 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkuytlsu8amnt"]
+
+[ext_resource type="Script" path="res://Scripts/Life_Handler.gd" id="1_2kwl7"]
+
+[sub_resource type="Animation" id="Animation_2i4pq"]
+resource_name = "Death"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Icon:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7pq5r"]
+resource_name = "Hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.1001, 0.2, 0.2001, 0.3, 0.3001, 0.4, 0.4001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -70), Vector2(0, -104), Vector2(-13, -122), Vector2(15, -71), Vector2(12, -97), Vector2(-21, -86), Vector2(-13, -104), Vector2(-16, -66), Vector2(0, -70), Vector2(-5, -70)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ugfac"]
+_data = {
+"Death": SubResource("Animation_2i4pq"),
+"Hit": SubResource("Animation_7pq5r")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yhup"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnb1d"]
+bg_color = Color(0.584314, 0.172549, 0.0392157, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cy42m"]
+radius = 18.0
+
+[node name="Life_Handler" type="Node2D"]
+script = ExtResource("1_2kwl7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ugfac")
+}
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -70.0
+offset_right = 40.0
+offset_bottom = -30.0
+scale = Vector2(0.621389, 0.389063)
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+custom_minimum_size = Vector2(120, 10)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.544
+offset_top = 80.2408
+offset_right = 40.456
+offset_bottom = 107.241
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_7yhup")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vnb1d")
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_cy42m")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

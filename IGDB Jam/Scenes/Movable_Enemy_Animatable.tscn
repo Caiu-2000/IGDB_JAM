@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://ckh3ss0yqxlhu"]
+
+[ext_resource type="Script" path="res://Scripts/Fliying_Enemy.gd" id="1_v7wai"]
+[ext_resource type="AudioStream" uid="uid://ciq83urnclvr" path="res://SFX/enemy_damage.wav" id="3_7shcu"]
+[ext_resource type="AudioStream" uid="uid://br87rc63sward" path="res://SFX/enemy_death.wav" id="4_o3sa3"]
+[ext_resource type="PackedScene" uid="uid://dkuytlsu8amnt" path="res://Complementary_Scenes/life_handler.tscn" id="5_qrvp7"]
+[ext_resource type="Texture2D" uid="uid://b8ik5iu47dl60" path="res://Sprites/Sprites-20231223T203514Z-001/Sprites/Monsters/Jellyfish.png" id="5_uhlu1"]
+[ext_resource type="Texture2D" uid="uid://drfw5uxa6auyt" path="res://Sprites/Sprites-20231223T203514Z-001/Sprites/Monsters/Beetle.png" id="6_52aa6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pntb5"]
+size = Vector2(22, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvgcd"]
+size = Vector2(24, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6au2"]
+atlas = ExtResource("6_52aa6")
+region = Rect2(0, 0, 13, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i4sug"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6au2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uhlu1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[node name="Movable_body" type="AnimatableBody2D"]
+collision_layer = 129
+collision_mask = 0
+sync_to_physics = false
+script = ExtResource("1_v7wai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_pntb5")
+
+[node name="Directions_Storage" type="Node2D" parent="."]
+
+[node name="Up" type="Node2D" parent="Directions_Storage"]
+position = Vector2(0, -100)
+
+[node name="Down" type="Node2D" parent="Directions_Storage"]
+position = Vector2(0, 100)
+
+[node name="Lefht" type="Node2D" parent="Directions_Storage"]
+position = Vector2(-100, 0)
+
+[node name="Right" type="Node2D" parent="Directions_Storage"]
+position = Vector2(100, 0)
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Damaged" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("3_7shcu")
+
+[node name="Death" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("4_o3sa3")
+
+[node name="Life_Handler" parent="." instance=ExtResource("5_qrvp7")]
+
+[node name="Damage_Area" type="Area2D" parent="."]
+modulate = Color(0.988235, 0.145098, 0.0431373, 1)
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Area"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_vvgcd")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_i4sug")
+
+[connection signal="area_entered" from="Damage_Area" to="." method="_on_damage_area_area_entered"]
+[connection signal="body_entered" from="Damage_Area" to="." method="_on_damage_area_body_entered"]
+[connection signal="body_exited" from="Damage_Area" to="." method="_on_damage_area_body_exited"]

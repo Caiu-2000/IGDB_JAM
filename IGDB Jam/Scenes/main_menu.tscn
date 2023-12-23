@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddk3gkbo488l7"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_pd4dr"]
+[ext_resource type="Texture2D" uid="uid://d1im3ywmripi0" path="res://Sprites/logo_jam.png" id="2_umoe7"]
+
+[node name="Main_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_right = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pd4dr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_umoe7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.5
+offset_top = 115.0
+offset_right = 170.5
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 45
+
+[node name="Start_Game" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 8
+text = "Start Game
+"
+
+[node name="Credits" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Credits
+"
+
+[node name="Quit" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Quit Game
+"
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="pressed" from="HBoxContainer/Start_Game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="HBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="HBoxContainer/Quit" to="." method="_on_quit_pressed"]

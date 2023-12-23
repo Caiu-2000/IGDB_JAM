@@ -1,0 +1,315 @@
+[gd_scene load_steps=7 format=3 uid="uid://42rpxesr5ffx"]
+
+[ext_resource type="Script" path="res://Scripts/Gui_Script.gd" id="1_k1u7q"]
+[ext_resource type="Texture2D" uid="uid://np6mel7g7kdq" path="res://Sprites/pause_menu.png" id="2_jtf7v"]
+[ext_resource type="Texture2D" uid="uid://d1im3ywmripi0" path="res://Sprites/logo_jam.png" id="3_us33r"]
+
+[sub_resource type="Theme" id="Theme_8kmic"]
+
+[sub_resource type="Animation" id="Animation_qanqo"]
+resource_name = "Shake_Score"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player_GUI/Control:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.75528, 0.803764), Vector2(0.346492, 0.957062), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player_GUI/Control:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.27332, -0.569173, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wcjwg"]
+_data = {
+"Shake_Score": SubResource("Animation_qanqo")
+}
+
+[node name="Gui" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_k1u7q")
+
+[node name="Player_GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_8kmic")
+
+[node name="Life_Bar" type="ProgressBar" parent="Player_GUI"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+offset_right = 4.0
+offset_bottom = 27.0
+show_percentage = false
+
+[node name="Life_numbers" type="Label" parent="Player_GUI/Life_Bar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Player_GUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 17.0
+offset_right = 20.0
+offset_bottom = 57.0
+grow_horizontal = 2
+
+[node name="Points_Value" type="Label" parent="Player_GUI/Control"]
+layout_mode = 1
+offset_top = 24.0
+offset_right = 40.0001
+offset_bottom = 47.0
+text = "0
+"
+
+[node name="Points_Text" type="Label" parent="Player_GUI/Control"]
+layout_mode = 1
+offset_left = -11.0
+offset_top = -16.0
+offset_right = 42.0002
+offset_bottom = 7.0
+text = " Points
+"
+
+[node name="Death_Menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Death_Menu"]
+modulate = Color(0.219608, 0.219608, 0.219608, 0.34902)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Death_Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -154.0
+offset_right = 64.0
+offset_bottom = -131.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You Died :(
+"
+
+[node name="Restart" type="Button" parent="Death_Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -71.5
+offset_right = 54.5
+offset_bottom = -40.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart Level
+"
+
+[node name="Main_Menu" type="Button" parent="Death_Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = 34.5
+offset_right = 48.0
+offset_bottom = 65.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main Menu"
+
+[node name="Points" type="Label" parent="Death_Menu"]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 43.0
+offset_right = 344.0
+offset_bottom = 92.0
+rotation = 0.00279392
+text = "Your Score Was 0  :(
+
+"
+
+[node name="Pause_Menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pause_Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = -24.0
+offset_right = 37.0
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jtf7v")
+
+[node name="Resume" type="Button" parent="Pause_Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -57.0
+offset_right = 36.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume"
+
+[node name="Main_Menu" type="Button" parent="Pause_Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = 18.0
+offset_right = 72.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Go to main menu"
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wcjwg")
+}
+
+[node name="Finish_Menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Finish_Menu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_us33r")
+
+[node name="Label" type="Label" parent="Finish_Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 37.0
+offset_right = 20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "You Did it with a score of
+"
+
+[node name="Score" type="Label" parent="Finish_Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 147.0
+offset_right = 20.0
+offset_bottom = 170.0
+grow_horizontal = 2
+text = "Points
+"
+
+[node name="Main_Menu" type="Button" parent="Finish_Menu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -151.0
+offset_top = -36.0
+offset_right = -10.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Go to Main Menu
+"
+
+[node name="Restart" type="Button" parent="Finish_Menu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -36.0
+offset_right = 135.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Restart Level
+"
+
+[connection signal="pressed" from="Death_Menu/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Death_Menu/Main_Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Pause_Menu/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Pause_Menu/Main_Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Finish_Menu/Main_Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Finish_Menu/Restart" to="." method="_on_restart_pressed"]

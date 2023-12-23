@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvsyliu7cqn3r"]
+
+[ext_resource type="AudioStream" uid="uid://bclmj0fty42ep" path="res://Sprites/cave_madness.wav" id="1_h4ops"]
+
+[node name="Main_Theme" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_h4ops")
+volume_db = 1.0
+autoplay = true
+bus = &"Music"

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://q6sm7bpwmsdv"]
+
+[ext_resource type="Script" path="res://Scripts/Main_Scene.gd" id="1_7ixap"]
+[ext_resource type="PackedScene" uid="uid://ddk3gkbo488l7" path="res://Scenes/main_menu.tscn" id="1_ub0qb"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(328, 239)
+script = ExtResource("1_7ixap")
+
+[node name="Main_Menu" parent="." instance=ExtResource("1_ub0qb")]
+offset_left = 0.0
+offset_right = 0.0

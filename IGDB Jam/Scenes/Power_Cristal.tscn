@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://vnxt5l4qpofu"]
+
+[ext_resource type="Script" path="res://Scripts/Power_Cristal.gd" id="1_3eosn"]
+[ext_resource type="Texture2D" uid="uid://oqtp3wv4lj7c" path="res://Sprites/Cristall_Blank.png" id="2_tkurf"]
+[ext_resource type="AudioStream" uid="uid://bgmru5yub8mkh" path="res://SFX/upgrade.wav" id="3_7kbf1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b21mf"]
+radius = 27.0
+height = 78.0
+
+[node name="Power_Cristal" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_3eosn")
+Fixed_Number = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_b21mf")
+
+[node name="CristallBlank" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_tkurf")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -4.0
+offset_top = -68.0
+offset_right = 36.0
+offset_bottom = -45.0
+text = "5
+"
+
+[node name="Collected" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7kbf1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2uxi80vav1uy"]
+
+[ext_resource type="Script" path="res://Scripts/Projectile.gd" id="1_6o1qt"]
+[ext_resource type="Texture2D" uid="uid://dr2autusmgyb2" path="res://Sprites/Bullet.png" id="2_ip0fr"]
+[ext_resource type="AudioStream" uid="uid://qpehxbht4ap5" path="res://SFX/gun.wav" id="3_30qga"]
+[ext_resource type="AudioStream" uid="uid://coaxxx4c2s3l6" path="res://SFX/bomb.wav" id="4_p33ju"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o42p"]
+size = Vector2(14, 18)
+
+[node name="Sprite2D" type="Area2D"]
+texture_filter = 1
+rotation = 1.5708
+collision_layer = 128
+collision_mask = 192
+script = ExtResource("1_6o1qt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.38419e-07, -1.04216e-14)
+shape = SubResource("RectangleShape2D_6o42p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ip0fr")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_30qga")
+
+[node name="Hit_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_p33ju")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
